@@ -1,0 +1,128 @@
+Enter file contents here
+package test;
+
+
+import org.junit.After;
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.experimental.theories.suppliers.TestedOn;
+
+import code.GameLife;
+
+public class TestGame {
+
+	@Before
+	public void setUp() throws Exception {
+	}
+
+	@After
+	public void tearDown() throws Exception {
+	}
+
+	@Test //测试行数能够设置正确
+	public void sizeOfRowsTest(){
+		int a[][] = {{0,1,0,0},{1,1,0,0},{1,0,0,0}};
+		
+		GameLife g = new GameLife();
+		g.setArray(a);
+		Assert.assertEquals(3, g.getSizeRows());
+	}
+	
+	@Test	//测试列数能否设置正确
+	public void sizeOfColumnsTest(){
+		int a[][] = {{0,1,0,0},{1,1,0,0},{1,0,0,0}};
+		
+		GameLife g = new GameLife();
+		g.setArray(a);
+		Assert.assertEquals(4, g.getSizeColums());
+	}
+	
+	@Test	//测试空矩阵，行数是否正确
+	public void sizeOfZeroRowTest(){
+		int a[][] = {};
+		
+		GameLife g = new GameLife();
+		g.setArray(a);
+		Assert.assertEquals(0, g.getSizeRows());
+	}
+	
+	@Test	//测试空矩阵下，列数是否正确
+	public void zeroRowSizeOfColumnsTest(){
+		int a[][] = {};
+		
+		GameLife g = new GameLife();
+		g.setArray(a);
+		Assert.assertEquals(0, g.getSizeColums());
+	}
+	
+	@Test	//测试一个点的邻居的和
+	public void numberOfNeiborsTest() {
+		int a[][]= {{0,1,0},{1,1,0},{1,0,0}};
+		
+		GameLife gl = new GameLife();
+		gl.setArray(a);
+		org.junit.Assert.assertEquals(3,gl.numberOfNeibors(1,1));
+	}
+	
+	@Test	//测试当前点值为0，邻居总共3个时，返回下一状态
+	public void nextNumberOfCurrentPlaceTest0()
+	{			
+		GameLife gl = new GameLife();
+		org.junit.Assert.assertEquals(0,gl.nextNumberOfCurrentPlace(0, 1));
+	}
+	
+	@Test	//测试当前点值为1，邻居总共6个时，返回下一状态
+	public void nextNumberOfCurrentPlaceTest1()
+	{			
+		GameLife gl = new GameLife();
+		org.junit.Assert.assertEquals(0,gl.nextNumberOfCurrentPlace(1, 6));
+	}
+	
+	
+	
+	@Test	//测试矩阵中指定一点的下一状态
+	public void nextNumberOfAPlaceTest()
+	{	
+		int a[][]= {{0,1,0},{1,1,0},{1,0,0}};
+		
+		GameLife gl = new GameLife();
+		gl.setArray(a);
+		org.junit.Assert.assertEquals(1,gl.nextNumberOfAPlace(1,1));
+	}
+	
+	
+	@Test	//测试矩阵中所有点的下一状态
+	public void generateNextGenerationTest()
+	{	
+		int a[][]= {{0,1,0},{1,1,0},{1,0,0}};
+		int b[][]= {{1,1,0},{1,1,0},{1,1,0}};
+		
+		GameLife gl = new GameLife();
+		gl.setArray(a);
+		
+		org.junit.Assert.assertArrayEquals(b, gl.generateNextGeneration());
+	}
+	
+	@Test	//测试全为0的矩阵下一状态
+	public void generateNextGenerationWithZeroTest()
+	{	
+		int a[][]= {{0,0,0},{0,0,0},{0,0,0}};
+		int b[][]= {{0,0,0},{0,0,0},{0,0,0}};
+		
+		GameLife gl = new GameLife();
+		gl.setArray(a);
+		
+		org.junit.Assert.assertArrayEquals(b, gl.generateNextGeneration());
+	}
+	
+	@Test	//测试空矩阵的下一状态
+	public void generateNextGenerationWithEmptyMatrixTest(){
+		int a[][] = {};
+		int b[][] = {};
+		GameLife gl = new GameLife();
+		gl.setArray(a);
+		
+		org.junit.Assert.assertArrayEquals(b, gl.generateNextGeneration());
+	}
+}
